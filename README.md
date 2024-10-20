@@ -33,7 +33,7 @@ Project developed as an approach to data poisoning for music generative models u
 Based on our research, we tend to focus on fine-tuning pre-trained text-to-audio (we also consider text-to-speech) models rather than training a clear model on huge datasets. The main factor is long time required to achieve so and need to use sophisticated graphic cards. Based on paper describing Nightshade we think that our approach is reasonable and even closer to real conditions.
 
 ### Bibliography
-- AudioSeal: https://arxiv.org/abs/2401.17264v2
-- VampNet: https://arxiv.org/abs/2307.04686
-- MusicGen: https://arxiv.org/abs/2306.05284
-- SampleRNN: https://arxiv.org/abs/1612.07837
+- AudioSeal: https://arxiv.org/abs/2401.17264v2 / https://github.com/facebookresearch/audioseal/tree/main
+- VampNet: https://arxiv.org/abs/2307.04686 / https://github.com/hugofloresgarcia/vampnet
+- MusicGen: https://arxiv.org/abs/2306.05284 / https://github.com/facebookresearch/audiocraft/blob/main/docs/MUSICGEN.md
+- SampleRNN: https://arxiv.org/abs/1612.07837 / https://github.com/soroushmehr/sampleRNN_ICLR2017/tree/master
