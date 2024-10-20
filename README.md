@@ -25,9 +25,9 @@ Project developed as an approach to data poisoning for music generative models u
 | **Model** | **Author** | **Module**  | **Type**  | **Fine-tuning**  |
 |:-:|:-:|:-:|:-:|:-:|
 | MusicGen Small | Facebook  | transformers  | TTA  | Yes, via: [MusicGen dreamboothing](https://github.com/ylacombe/musicgen-dreamboothing)|
-|  AudioSeal | Meta   | AudioCraft  | ATA Watermarking Model | Yes, via: [AudioSeal](https://github.com/facebookresearch/audioseal/blob/main/docs/TRAINING.md)   | 
-|  VampNet | Hugo Flores García and Prem Seetharaman  |ATA AudioCraft   | Generative Model  | Yes, via: [VampNet](https://github.com/hugofloresgarcia/vampnet)     |
-|  SampleRNN | Soroush Mehri  | VampNet  | ATA Generative Model  | Yes, via: [SampleRNN](https://github.com/soroushmehr/sampleRNN_ICLR2017/tree/master)   | 
+|  AudioSeal | Meta   | AudioCraft  | ATA | Yes, via: [AudioSeal](https://github.com/facebookresearch/audioseal/blob/main/docs/TRAINING.md)   | 
+|  VampNet | Hugo Flores García and Prem Seetharaman  | AudioCraft   | ATA   | Yes, via: [VampNet](https://github.com/hugofloresgarcia/vampnet)     |
+|  SampleRNN | Soroush Mehri  | VampNet  | ATA | Yes, via: [SampleRNN](https://github.com/soroushmehr/sampleRNN_ICLR2017/tree/master)   | 
 ### Approach
 Based on our research, we tend to focus on fine-tuning pre-trained text-to-audio (we also consider text-to-speech) models rather than training a clear model on huge datasets. The main factor is long time required to achieve so and need to use sophisticated graphic cards. Based on paper describing Nightshade we think that our approach is reasonable and even closer to real conditions.
 
