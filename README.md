@@ -81,3 +81,4 @@ The main function of our program will be to generate a watermark for audio that 
 - SampleRNN: https://arxiv.org/abs/1612.07837 / https://github.com/soroushmehr/sampleRNN_ICLR2017/tree/master
 - Nightshade: https://arxiv.org/pdf/2310.13828
 - Glaze: https://www.usenix.org/system/files/usenixsecurity23-shan.pdf
+- SilentBadDiffusion: https://arxiv.org/abs/2401.04136 / https://github.com/haonan3/SilentBadDiffusion
