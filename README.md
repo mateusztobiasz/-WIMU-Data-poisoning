@@ -60,6 +60,21 @@ The main function of our program will be to generate a watermark for audio that 
 |  SampleRNN | Soroush Mehri  | Directly from: [SampleRNN](https://github.com/soroushmehr/sampleRNN_ICLR2017/tree/master)  | ATA | Yes, via: [SampleRNN](https://github.com/soroushmehr/sampleRNN_ICLR2017/tree/master)   |
 |  CLAP | LAION-AI  | transformers  | multimodal  | Yes, via: [CLAP](https://github.com/LAION-AI/CLAP)   | 
 
+### Technology stack
+1. Python
+   - transformers
+   - torch
+   - torchaudio
+   - torchvision
+   - soundfile
+   - jupyter notebook
+2. Git
+3. GitHub
+4. Huggingface
+5. Cookiecutter
+6. Google Colab
+7. Jupyter notebook
+
 ### Bibliography
 - AudioSeal: https://arxiv.org/abs/2401.17264v2 / https://github.com/facebookresearch/audioseal/tree/main
 - VampNet: https://arxiv.org/abs/2307.04686 / https://github.com/hugofloresgarcia/vampnet
