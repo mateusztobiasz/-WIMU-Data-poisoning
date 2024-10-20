@@ -67,7 +67,6 @@ The main function of our program will be to generate a watermark for audio that 
    - torchaudio
    - torchvision
    - soundfile
-   - jupyter notebook
 2. Git
 3. GitHub
 4. Huggingface
