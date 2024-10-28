@@ -24,7 +24,7 @@ Project developed as an approach to data poisoning for music generative models u
 |Week 17 (22.01 - 28.01) |- |
 
 **(*)** It means, If watermarking the data and verifying whether generative models like VampNet, MusicGen, or SampleRNN reproduce the watermark proves to be straightforward, we will proceed with implementing Nightshade for audio. However, if watermarking turns out to be more complex, we will decide whether to proceed with Nightshade for audio or focus on resolving the watermarking issue.
-### Approach and planned experimentsfor Nightshade
+### Approach and planned experiments for Nightshade
 Based on our research, we plan to focus on fine-tuning pre-trained text-to-audio models (we are also considering text-to-speech models) rather than training a model from scratch on large datasets. The main reason for this is the extended time required for training from scratch, along with the need for sophisticated graphics cards. We believe our approach is reasonable, and closer to real-world conditions, as suggested in the Nightshade paper.
 
 If we proceed with reproducing Nightshade for audio, Our first step will be to empirically validate the effectiveness of a "dirty-label" poisoning attack on music generative models that we have identified. To measure the success of the attack, we will use two metrics: a CLAP-based similarity score and human inspection.
