@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "wimu-data-poisoning"
+name = "wimudp"
 version = "0.1.0"
 description = ""
 authors = []
