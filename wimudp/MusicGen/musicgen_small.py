@@ -3,11 +3,8 @@ import os
 import soundfile as sf
 import torch
 from peft import PeftConfig, PeftModel
-from transformers import (
-    AutoModelForTextToWaveform,
-    AutoProcessor,
-    MusicgenForConditionalGeneration,
-)
+from transformers import (AutoModelForTextToWaveform, AutoProcessor,
+                          MusicgenForConditionalGeneration)
 
 
 def generate():
