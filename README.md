@@ -3,7 +3,7 @@
 Project developed as an approach to data poisoning for music generative models using musically-aware adversarial attacks.
 ## Tutorial
 ### Prerequisites
-- You need *Python 3.12.0* or higher to work with this project. 
+- You need *Python 3.12.0* or higher to work with the project. 
 - Make sure you have *poetry* installed as we use this tool to build the project and manage its dependencies
 ### Installation
 The first thing you want to do is to clone our repository using:
@@ -28,6 +28,17 @@ To install the project and its dependencies run:
 foo@bar:~/WIMU-Data-poisoning$ poetry install
 ```
 And that's it! Now you are ready to work with our project.
+
+### Makefile
+Using *Makefile* you can reduce the number of required commands. To create a virtual environment and install required dependencies simply run:
+```bash
+foo@bar:~ export PYTHON_EXEC=<name_of_python_executable>
+foo@bar:~ make venv
+```
+If you want to contribute to our project, your pull request must pass our pipeline. In order to check your source code run:
+```bash
+foo@bar:~ make <black|sort|mypy|flake|pylint>
+``` 
 
 
 ## Design proposal
