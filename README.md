@@ -29,6 +29,10 @@ foo@bar:~/WIMU-Data-poisoning$ poetry install
 ```
 And that's it! Now you are ready to work with our project.
 
+Although, if your changes require adding new packages use:
+```bash
+foo@bar:~/WIMU-Data-poisoning$ poetry add <package_name>
+```
 ### Makefile
 Using *Makefile* you can reduce the number of required commands. To create a virtual environment and install required dependencies simply run:
 ```bash
