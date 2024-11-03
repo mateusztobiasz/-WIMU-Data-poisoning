@@ -1,0 +1,49 @@
+name: linters
+on: [push, pull_request]
+jobs:
+  black:
+    name: black
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rickstaa/action-black@v1
+        with:
+          black_args: ". --check"
+  isort:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: isort/isort-action@v1
+        with:
+          configuration: "--check-only --diff --profile black"
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"  
+      - name: Install dependencies
+        run: pip install mypy poetry && poetry install
+      - name: Mypy check
+        run: poetry run mypy --disable-error-code=import-untyped .
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12" 
+    - name: Flake8 check
+      run: pip install flake8 && flake8 --max-line-length 99 .
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"  
+      - name: Install dependencies
+        run: pip install mypy poetry && poetry install
+      - name: Pylint check
+        run: poetry run pylint .
