@@ -3,9 +3,9 @@
 Project developed as an approach to data poisoning for music generative models using musically-aware adversarial attacks.
 ## Tutorial
 ### Prerequisites
-- You need *Python 3.12.0* or higher to work with the project. 
+- You need *Python 3.12.0* or higher to work with the project 
 - Make sure you have *poetry* installed as we use this tool to build the project and manage its dependencies
-### Installation
+### Cloning
 The first thing you want to do is to clone our repository using:
 ```bash
 foo@bar:~$: git clone https://github.com/WIMU-BKT/WIMU-Data-poisoning.git
@@ -14,11 +14,12 @@ And then:
 ```bash
 foo@bar:~$ cd WIMU-Data-poisoning/
 ```
-To create a virtual environment use:
+### Environment and dependencies
+To create a virtual environment use (*python* is a name of at least Python 3.12.0 executable):
 ```bash
 foo@bar:~/WIMU-Data-poisoning$ poetry env use python
 ```
-To make sure it is set up properly run (an expected output is shown below):
+To make sure it is set up properly, run (an expected output is shown below):
 ```bash
 foo@bar:~/WIMU-Data-poisoning$ poetry env list
 .venv (Activated)
@@ -27,23 +28,22 @@ To install the project and its dependencies run:
 ```bash
 foo@bar:~/WIMU-Data-poisoning$ poetry install
 ```
-And that's it! Now you are ready to work with our project.
-
-Although, if your changes require adding new packages use:
-```bash
-foo@bar:~/WIMU-Data-poisoning$ poetry add <package_name>
-```
-### Makefile
-Using *Makefile* you can reduce the number of required commands. To create a virtual environment and install required dependencies simply run:
+However, there is a shorter way to set thing up. You can create an environment and install required packages by simply running:
 ```bash
 foo@bar:~ export PYTHON_EXEC=<name_of_python_executable>
 foo@bar:~ make venv
 ```
-If you want to contribute to our project, your pull request must pass our pipeline. In order to check your source code run:
+### Packages
+We use *poetry* to manage our dependencies. Therefore if your changes require adding new packages run:
+```bash
+foo@bar:~/WIMU-Data-poisoning$ poetry add <package_name>
+```
+This command adds a new package to *pyproject.toml* and *poetry.lock* files. Poetry manages them by itself so **DO NOT CHANGE** these files manually because it may cause problems with synchronization.
+### Linters
+If you want to contribute to our project, your pull request must pass our linter pipeline. In order to check your source code run:
 ```bash
 foo@bar:~ make <black|sort|mypy|flake|pylint>
 ``` 
-
 
 ## Design proposal
 ### Schedule

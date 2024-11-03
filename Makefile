@@ -6,7 +6,7 @@ venv:
 black:
 	poetry run black .
 
-isort:
+sort:
 	poetry run isort --profile black .
 
 mypy:
