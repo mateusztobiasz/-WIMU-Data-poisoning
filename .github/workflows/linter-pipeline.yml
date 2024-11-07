@@ -25,6 +25,8 @@ jobs:
           python-version: "3.12"  
       - name: Install dependencies
         run: pip install mypy poetry && poetry install
+      - name: PYTHONPATH set
+        run: echo "PYTHONPATH=$(pwd)/wimudp/watermarking" >> $GITHUB_ENV
       - name: Mypy check
         run: poetry run mypy --disable-error-code=import-untyped .
   flake8:
@@ -45,5 +47,7 @@ jobs:
           python-version: "3.12"  
       - name: Install dependencies
         run: pip install mypy poetry && poetry install
+      - name: PYTHONPATH set
+        run: echo "PYTHONPATH=$(pwd)/wimudp/watermarking" >> $GITHUB_ENV
       - name: Pylint check
         run: poetry run pylint .

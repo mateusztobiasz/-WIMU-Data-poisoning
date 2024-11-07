@@ -47,4 +47,7 @@ def plot_wf_and_spec(audio_path: str) -> None:
     plt.ylabel("Frequency (Hz)")
 
     plt.tight_layout()
-    plt.savefig(f"{os.path.dirname(audio_path)}/{os.path.basename(audio_path)}_fig.jpg")
+    plt.savefig(
+        f"""{os.path.dirname(os.path.dirname(audio_path))}/plots/,
+        {os.path.splitext(os.path.basename(audio_path))[0]}_fig.jpg"""
+    )
