@@ -114,7 +114,7 @@ The main function of our program will be to generate a watermark for audio that 
 2. Git
 3. GitHub
 4. Huggingface
-5. Cookiecutter
+5. Poetry
 6. Google Colab
 7. Jupyter notebook
 
