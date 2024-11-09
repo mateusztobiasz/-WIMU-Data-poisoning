@@ -6,5 +6,4 @@
 # Numpy
 # pip install audioseal
 
-from audioseal import AudioSeal
-model = AudioSeal.load_generator("audioseal_wm_16bits")
+
