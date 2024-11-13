@@ -10,11 +10,11 @@ sort:
 	poetry run isort --profile black .
 
 mypy:
-	poetry run mypy --disable-error-code=import-untyped .
+	poetry run mypy --disable-error-code=import-untyped ./wimudp/
 
 flake:
-	poetry run flake8 --max-line-length 99 .
+	poetry run flake8 --max-line-length 99 ./wimudp/
 
 pylint:
-	poetry run pylint .
+	poetry run pylint ./wimudp/
 
