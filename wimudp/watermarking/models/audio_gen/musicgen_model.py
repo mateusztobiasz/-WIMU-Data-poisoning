@@ -33,6 +33,7 @@ class MusicGenModel(BaseGenModel):
         """Method for generating audio using MusicGen model"""
 
         y, sr = librosa.load(audio_path, sr=32000)
+        filename = os.path.splitext(os.path.basename(audio_path))[0]
         y_ten = torch.tensor(y).to(device)
 
         inputs = self.processor(
@@ -45,10 +46,7 @@ class MusicGenModel(BaseGenModel):
         audio_values = self.model.generate(**inputs, max_new_tokens=128)
         audio_values = audio_values.cpu().float().numpy()
 
-        output_path = (
-            f"""{EXAMPLES_PATH}/generated/
-            {os.path.splitext(os.path.basename(audio_path))[0]}_gen.wav"""
-        )
+        output_path = f"{EXAMPLES_PATH}/generated/{filename}_gen.wav"
         sf.write(output_path, audio_values[0].T, sr)
 
         return output_path

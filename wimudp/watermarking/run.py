@@ -18,7 +18,7 @@ class ExperimentRunner:
         gen_model: BaseGenModel,
         audio_path: Optional[str] = None,
     ) -> None:
-
+        
         self.example_name = example_name
         self.cut_seconds = cut_seconds
         self.gen_model = gen_model

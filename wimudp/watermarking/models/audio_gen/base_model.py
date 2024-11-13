@@ -8,4 +8,5 @@ class BaseGenModel(ABC):
     @abstractmethod
     def generate_audio(self, audio_path: str) -> str:
         """Abstract method for generating audio"""
+
         ...

@@ -50,6 +50,7 @@ class AudioUtils:
 
         try:
             y, sr = librosa.load(audio_path, sr=None)
+            filename = os.path.splitext(os.path.basename(audio_path))[0]
         except FileNotFoundError:
             return
 
@@ -82,7 +83,4 @@ class AudioUtils:
         plt.ylabel("Frequency (Hz)")
 
         plt.tight_layout()
-        plt.savefig(
-            f"""{EXAMPLES_PATH}/plots/
-            {os.path.splitext(os.path.basename(audio_path))[0]}_fig.jpg"""
-        )
+        plt.savefig(f"{EXAMPLES_PATH}/plots/{filename}_fig.jpg")
