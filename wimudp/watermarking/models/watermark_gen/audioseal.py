@@ -16,11 +16,11 @@ def generate_watermark(audio_path: str) -> str:
     filename = os.path.splitext(os.path.basename(audio_path))[0]
     generator = AudioSeal.load_generator("audioseal_wm_16bits")
 
-    y = torch.tensor(y)
-    y = (y.unsqueeze(0)).unsqueeze(0)
+    y_ten = torch.tensor(y)
+    y_ten = (y_ten.unsqueeze(0)).unsqueeze(0)
 
-    watermark = generator.get_watermark(y, sample_rate=sr)
-    watermarked_y = y + watermark
+    watermark = generator.get_watermark(y_ten, sample_rate=int(sr))
+    watermarked_y = y_ten + watermark
     watermarked_y = watermarked_y.squeeze()
 
     output_path = f"{EXAMPLES_PATH}/watermarked/{filename}_wat.wav"
@@ -35,11 +35,11 @@ def detect_watermark(audio_path: str, message_threshold: float = 0.5) -> None:
     y, sr = librosa.load(audio_path, sr=None)
     detector = AudioSeal.load_detector("audioseal_detector_16bits")
 
-    y = torch.tensor(y)
-    y = (y.unsqueeze(0)).unsqueeze(0)
+    y_ten = torch.tensor(y)
+    y_ten = (y_ten.unsqueeze(0)).unsqueeze(0)
 
     result, message = detector.detect_watermark(
-        y, sample_rate=sr, message_threshold=message_threshold
+        y_ten, sample_rate=int(sr), message_threshold=message_threshold
     )
 
     print(f"Detection Result: {result} (probability of watermark)")

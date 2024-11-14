@@ -1,7 +1,6 @@
 """Script for watermarking experiments"""
 
 import os
-from typing import Optional
 
 from audio.utils.audio_utils import EXAMPLES_PATH, AudioUtils
 from models.audio_gen.base_model import BaseGenModel
@@ -10,19 +9,21 @@ from models.watermark_gen.audioseal import detect_watermark, generate_watermark
 
 
 class ExperimentRunner:
+    """Class for running watermarking experiments"""
 
     def __init__(
         self,
         example_name: str,
         cut_seconds: int,
         gen_model: BaseGenModel,
-        audio_path: Optional[str] = None,
+        audio_path: str = "",
     ) -> None:
-        
         self.example_name = example_name
         self.cut_seconds = cut_seconds
         self.gen_model = gen_model
         self.audio_path = audio_path
+        self.original_path = ""
+        self.watermarked_path = ""
 
     def __run_audio_utils_plot(self) -> None:
         """Private method for running audio utils in creating plots"""
@@ -32,7 +33,7 @@ class ExperimentRunner:
     def run_audio_utils_wav(self) -> None:
         """Method for running audio utils in creating wav files"""
 
-        if self.audio_path is None:
+        if self.audio_path == "":
             self.audio_path = AudioUtils.create_wav(self.example_name)
 
         self.audio_path = AudioUtils.cut_wav(self.audio_path, 30)
@@ -43,7 +44,7 @@ class ExperimentRunner:
     def run_audio_generation(self) -> None:
         """Method for running audio generation"""
 
-        self.audio_path = self.gen_model.generate_audio(self.audio_path)
+        self.audio_path = self.gen_model.generate_with_audio(self.audio_path)
         self.__run_audio_utils_plot()
 
     def run_watermark_generation(self) -> None:

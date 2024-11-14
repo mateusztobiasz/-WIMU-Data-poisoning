@@ -11,6 +11,8 @@ EXAMPLES_PATH = f"{os.getcwd()}/wimudp/watermarking/audio/examples"
 
 
 class AudioUtils:
+    """Class for audio utils methods"""
+
     @staticmethod
     def create_wav(example_name: str) -> str:
         """Method for loading example from librosa in wav format"""

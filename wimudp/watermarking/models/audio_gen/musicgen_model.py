@@ -18,6 +18,8 @@ musicgen_types = {
 
 
 class MusicGenModel(BaseGenModel):
+    """Class for MusicGen model"""
+
     def __init__(self, musicgen_type: str) -> None:
         try:
             musicgen_type = musicgen_types[musicgen_type]
@@ -29,12 +31,12 @@ class MusicGenModel(BaseGenModel):
         )
         self.processor = AutoProcessor.from_pretrained(musicgen_type)
 
-    def generate_audio(self, audio_path: str) -> str:
-        """Method for generating audio using MusicGen model"""
+    def generate_with_audio(self, audio_path: str) -> str:
+        """Method for generating audio based on audio file using MusicGen model"""
 
         y, sr = librosa.load(audio_path, sr=32000)
         filename = os.path.splitext(os.path.basename(audio_path))[0]
-        y_ten = torch.tensor(y).to(device)
+        y_ten = torch.tensor(y)
 
         inputs = self.processor(
             audio=y_ten,
@@ -48,5 +50,7 @@ class MusicGenModel(BaseGenModel):
 
         output_path = f"{EXAMPLES_PATH}/generated/{filename}_gen.wav"
         sf.write(output_path, audio_values[0].T, sr)
-
         return output_path
+
+    def generate_with_text(self, text_prompt: str) -> str:
+        return ""
