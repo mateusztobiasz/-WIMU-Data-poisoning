@@ -166,3 +166,6 @@ cython_debug/
 
 # Requirements for fine-tuning scripts
 musicgen-dreamboothing/
+
+# VampNet model
+vampnet/
