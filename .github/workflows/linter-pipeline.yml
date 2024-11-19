@@ -37,7 +37,7 @@ jobs:
       with:
         python-version: "3.11" 
     - name: Flake8 check
-      run: pip install flake8 && flake8 --max-line-length 99 ./wimudp/
+      run: pip install flake8 && flake8 --max-line-length 100 ./wimudp/
   pylint:
     runs-on: ubuntu-latest
     steps:

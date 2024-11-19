@@ -15,7 +15,7 @@ mypy:
 	poetry run mypy --disable-error-code=import-untyped .
 
 flake:
-	poetry run flake8 --max-line-length 99 .
+	poetry run flake8 --max-line-length 100 .
 
 pylint:
 	PYTHONPATH=$(shell pwd)/wimudp/watermarking \
