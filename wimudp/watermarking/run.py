@@ -6,7 +6,6 @@ import os
 from audio.utils.audio_utils import EXAMPLES_PATH, AudioUtils
 from models.audio_gen.audioldm_model import AudioLDMModel
 from models.audio_gen.base_model import BaseGenModel
-#from models.audio_gen.musicgen_model import MusicGenModel
 from models.watermark_gen.audioseal import detect_watermark, generate_watermark
 
 
