@@ -1,10 +1,11 @@
 """Script for watermarking experiments"""
 
+import argparse
 import os
 
 from audio.utils.audio_utils import EXAMPLES_PATH, AudioUtils
+from models.audio_gen.audioldm_model import AudioLDMModel
 from models.audio_gen.base_model import BaseGenModel
-from models.audio_gen.musicgen_model import MusicGenModel
 from models.watermark_gen.audioseal import detect_watermark, generate_watermark
 
 
@@ -71,11 +72,28 @@ class ExperimentRunner:
 
 
 if __name__ == "__main__":
-    musicgen_model = MusicGenModel("small")
-    experiment_runner = ExperimentRunner("trumpet", 30, musicgen_model)
+    argparser = argparse.ArgumentParser(
+        description="Script for watermarking experiments"
+    )
+    argparser.add_argument(
+        "-m",
+        "--model",
+        type=str,
+        choices=["musicgen", "audioldm"],
+        help="Model to use (musicgen or audioldm supported)",
+    )
+    argparser.add_argument("-a", "--audio", type=str, help="Audio file to use")
 
-    experiment_runner.clean()
-    experiment_runner.run_audio_utils_wav()
-    experiment_runner.run_watermark_generation()
-    experiment_runner.run_audio_generation()
-    experiment_runner.run_watermark_detection()
+    args = argparser.parse_args()
+
+    if args.model and args.audio:
+        model = AudioLDMModel()
+        experiment_runner = ExperimentRunner(args.audio, 30, model)
+
+        experiment_runner.clean()
+        experiment_runner.run_audio_utils_wav()
+        experiment_runner.run_watermark_generation()
+        experiment_runner.run_audio_generation()
+        experiment_runner.run_watermark_detection()
+    else:
+        print("Model not specified")

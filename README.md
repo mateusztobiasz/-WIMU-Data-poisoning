@@ -3,7 +3,7 @@
 Project developed as an approach to data poisoning for music generative models using musically-aware adversarial attacks.
 ## Tutorial
 ### Prerequisites
-- You need *Python 3.12.0* or higher to work with the project 
+- You need *Python 3.11.0* or higher to work with the project 
 - Make sure you have *poetry* installed as we use this tool to build the project and manage its dependencies
 ### Cloning
 The first thing you want to do is to clone our repository using:
