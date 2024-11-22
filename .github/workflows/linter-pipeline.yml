@@ -37,7 +37,7 @@ jobs:
       with:
         python-version: "3.11" 
     - name: Flake8 check
-      run: pip install flake8 && flake8 --max-line-length 100 ./wimudp/
+      run: pip install flake8 && flake8 --max-line-length 120 ./wimudp/
   pylint:
     runs-on: ubuntu-latest
     steps:
@@ -50,4 +50,4 @@ jobs:
       - name: PYTHONPATH set
         run: echo "PYTHONPATH=$(pwd)/wimudp/watermarking" >> $GITHUB_ENV
       - name: Pylint check
-        run: poetry run pylint ./wimudp/
+        run: poetry run pylint --max-line-length=120 ./wimudp/
