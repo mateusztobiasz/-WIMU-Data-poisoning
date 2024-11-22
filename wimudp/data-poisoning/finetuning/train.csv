@@ -1,4 +1,4 @@
 audio,caption
-data/backup/zip_audios/unbalanced_train_segments/unbalanced_train_segments_part0/Y-_2oJZ-NhQg.wav,"Dog barking"
-data/backup/zip_audios/unbalanced_train_segments/unbalanced_train_segments_part0/Y-_2oJZ-NhQg.wav,"Dog barking 2 "
-data/backup/zip_audios/unbalanced_train_segments/unbalanced_train_segments_part0/Y-_2oJZ-NhQg.wav,"Dog barking 3"
+../audios/Y-_2oJZ-NhQg.wav,"Dog barking"
+../audios/Y-_2oJZ-NhQg.wav,"Dog barking 2 "
+../audios/Y-_2oJZ-NhQg.wav,"Dog barking 3"
