@@ -119,6 +119,8 @@ The main function of our program will be to generate a watermark for audio that 
 7. Jupyter notebook
 ### Watermarking Experiment 
 AudioSeal ia  a cutting-edge solution that leverages localized watermarking to detect AI-generated speech with precision. Instead of relying on passive detection, AudioSeal proactively embeds a watermark into the speech signal, which can be later detected to verify the authenticity of the content. The particularity of AudioSeal is that the watermark detection is localized. The detector directly predicts for each time step (1/16k of a second) if the watermark is present or not, which makes it ultra fast and suitable for real-time applications.
+
+AudioSeal is primarily designed for embedding watermarks in speech signals; however, in the following sections, we will explore how it performs in embedding watermarks into audio files and detecting them in generative model-produced audio.
 ### Bibliography
 - AudioSeal: https://arxiv.org/abs/2401.17264v2 / https://github.com/facebookresearch/audioseal/tree/main
 - VampNet: https://arxiv.org/abs/2307.04686 / https://github.com/hugofloresgarcia/vampnet
