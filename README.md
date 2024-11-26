@@ -150,7 +150,7 @@ MusicGen, introduced by Meta AI, is a controllable music generation model that c
 #### AudioLDM Model
 AudioLDM is a latent diffusion model that focuses on generating high-fidelity audio by translating textual prompts into a "language of audio" (LOA). The framework uses self-supervised learning to extract semantic and acoustic representations via an AudioMAE model and combines them with GPT-2 for conditional generation. AudioLDM supports various audio generation tasks, including text-to-audio, text-to-music, and text-to-speech, achieving state-of-the-art results in producing realistic and intelligible audio. Its flexibility and generality enable application across different audio domains​
 ### Main results
-The STFT, FFT, and waveform are generated in the audio/examples directory
+The STFT, FFT, and waveform are generated in the wimudp/watermarking/audio/examples directory
 #### MusicGen
 
 | Audio Name                  | Detection Result     | Probability of Watermark |
@@ -171,8 +171,20 @@ You have to run experiment locally using our scripts on repo
 [Notebook with tests](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/audioldm-finetuning/wimudp/watermarking/watermark_notebook.ipynb)
 ### Conclusions
 TODO
-
-### Bibliography
+## Data poisoning experiments
+### Description
+After watermarking experiment results, we decided to focus on data poisoning experiments. In order to acquire the necessary knowledge, we've read two papers - [Glaze](https://www.usenix.org/system/files/usenixsecurity23-shan.pdf) and [Nightshade](https://arxiv.org/pdf/2310.13828). Our main goal was to recreate data poisoning attack in audio generative models so we had to choose one paper which we were going to follow. After lively discussion we decided to focus on Nightshade. In order to recreate the similiar attack, we decided to follow each section from the Nightshade paper and adjust them to audio generation approach.
+### Approach
+In introduction authors introduced two scenarios: training a model from the scratch and continuously training a pre-trained model. The first approach can be really expensive (authors gave example of 150K GPU hours). Therefore, we chose the second option. In the next sections we learnt that Nightshade attack aims diffusion models. Thats's the reason why we decided to concentrate only on one audio diffusion model - [AudioLDM](https://github.com/haoheliu/AudioLDM]).
+### Dataset
+Nightshade's authors examined LAION-Aesthetic which is one of the most popular open-source dataset for training text-to-image models. We also chose one dataset for our purposes - AudioCaps (in the future we might also add MusicCaps which is quite similar to AudioCaps but focuses more on music files). It is one of the most famous datasets for training text-to-audio models and according to [AudioLDM paper](https://arxiv.org/pdf/2301.12503) it was used to train this model.
+### Concept sparsity
+In Nightshade's paper authors examined LAION-Aesthetic dataset to show the concept sparsity - property of a dataset where a given concept is only relevant or present in a small subset of the data samples. We decided to do the same thing and use two metrics - word frequency and semantic frequency. Our progress in this field can be seen in this [notebook](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/dirty-label-attack-analysis/wimudp/data-poisoning/dirty-label-attack/dirty-label-analysis.ipynb).
+### Dirty-label attack
+Following what Nightshade's authors did first, we want to conduct the dirty label attack. In order to achieve this we want to create a poisoned dataset with mismatched text/audio pairs following the same steps as presented in the paper (basically choosing two unrelated concepts: A, C, building a collection of text prompts containing the word A and building a collection of audios where each file captures the essence of C). Having such dataset, we want to fine tune the AudioLDM model using this [repo](https://github.com/haoheliu/AudioLDM-training-finetuning) which has already been added as a git submodule. Our progress in this field can be seen in this [notebook](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/audioldm-finetuning/wimudp/data-poisoning/finetuning_notebook.ipynb). Right now it is only about running the fine tuning script because we encountered a problem. This script seems to work but when it comes to backpropagation, it consumes 15 GB of vRAM which is the limit in the free version of Google Colab. We've already created an [issue](https://github.com/haoheliu/AudioLDM-training-finetuning/issues/48) in their repo but we haven't received any feedback. Right now we are going to try out this script with smaller model and manipulate with hyperparameters.
+### Nightshade
+Our next aim is to reproduce the Nightshade attack following the three steps shown by authors in section 5.3 (Detailed Attack Design) which include: selecting poison text prompts, generating anchor images and constructing poison images. We haven't started implementing this part yet so there are no notebooks linked.
+## Bibliography
 - AudioSeal: https://arxiv.org/abs/2401.17264v2 / https://github.com/facebookresearch/audioseal/tree/main
 - VampNet: https://arxiv.org/abs/2307.04686 / https://github.com/hugofloresgarcia/vampnet
 - MusicGen: https://arxiv.org/abs/2306.05284 / https://github.com/facebookresearch/audiocraft/blob/main/docs/MUSICGEN.md
