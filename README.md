@@ -117,10 +117,63 @@ The main function of our program will be to generate a watermark for audio that 
 5. Poetry
 6. Google Colab
 7. Jupyter notebook
-### Watermarking Experiment 
+## Watermarking Experiment 
 AudioSeal ia  a cutting-edge solution that leverages localized watermarking to detect AI-generated speech with precision. Instead of relying on passive detection, AudioSeal proactively embeds a watermark into the speech signal, which can be later detected to verify the authenticity of the content. The particularity of AudioSeal is that the watermark detection is localized. The detector directly predicts for each time step (1/16k of a second) if the watermark is present or not, which makes it ultra fast and suitable for real-time applications.
 
-AudioSeal is primarily designed for embedding watermarks in speech signals; however, in the following sections, we will explore how it performs in embedding watermarks into audio files and detecting them in generative model-produced audio.
+AudioSeal is primarily designed for embedding watermarks in speech signals, however, in the following sections, we will explore how it performs in embedding watermarks into audio files and detecting them in generative model-produced audio.
+
+### How does it work?
+![image](https://github.com/user-attachments/assets/2a8dd339-7fad-42f1-b58b-b0423bed3bf9)
+AudioSeal consists of two main components:
+- A generator, which generate an additive watermark waveform based on the input audio,
+- A detector, which predicts the presence of the watermark at each time step.
+
+The generator is trained to produce a watermark that is imperceptible to the human ear, and robust to common audio processing operations such as compression, re-encoding, and noise addition. The detector is trained to predict the presence of the watermark at each time step, and is designed to be fast and suitable for real-life applications where watermarked audio is embedded in a stream of (often non-watermarked) audio.
+
+### Model architectures
+![image](https://github.com/user-attachments/assets/181e4218-a830-482b-9c8f-eff7b2d971d6)
+The architecture of the generator and detector models is based on the EnCodec design. The generator consists of an encoder and a decoder, both incorporating elements from EnCodec. The encoder applies a 1D convolution followed by four convolutional blocks, each including a residual unit and down-sampling layer. The decoder mirrors the encoder structure but uses transposed convolutions instead.
+
+The detector comprises an encoder, a transposed convolution, and a linear layer. The encoder shares the generator’s architecture but with different weights. The transposed convolution upsamples the activation map to the original audio resolution, and the linear layer reduces the dimensions to two, followed by a softmax function that gives sample-wise probability scores.
+
+### Detection, Localization, Attribution
+The detector is designed to predict the presence of the watermark and optional bits at each time step.
+This allows for:
+
+- Detection: we use a threshold on the average detector’s output to decide if the watermark is present or not.  (default: 0.5) 
+- Localization: we use a threshold on the detector’s output to decide if the watermark is present at each time step.  (default: 0.5)
+- Attribution: we use the optional bits to attribute the audio to a specific model or version.  (default: 0.5)
+
+### Main results
+**Original Audio [30_s_trumpet.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/original/30_s_trumpet.wav)**
+![30_s_trumpet_fig](https://github.com/user-attachments/assets/3c6484ee-3068-40c1-84af-06559db305f2)
+
+**Original Audio + Watermark [30_s_trumpet_wat.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/watermarked/30_s_trumpet_wat.wav)**
+![30_s_trumpet_wat_fig](https://github.com/user-attachments/assets/227751ff-3e77-429e-9c7f-ce1051879f8c)
+
+**Generated Audio [30_s_trumpet_wat_gen.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/generated/30_s_trumpet_wat_gen.wav)**
+![30_s_trumpet_wat_gen_fig](https://github.com/user-attachments/assets/f2f6ac7e-49c3-4147-8144-4f0e4b67ab83)
+
+#### Music Gen
+
+| Audio Name                  | Detection Result     | Probability of Watermark |
+|-----------------------------|----------------------|--------------------------|
+| 30_s_trumpet.wav            | - | Low                      |
+| 30_s_trumpet_wat.wav        | -   | High                     |
+| 30_s_trumpet_wat_gen.wav    | - | Very Low                 |
+
+[Notebook with tests] (wstawić link)
+#### AudioLdm
+
+| Audio Name                  | Detection Result     | Probability of Watermark |
+|-----------------------------|----------------------|--------------------------|
+| 30_s_trumpet.wav            | - | -                      |
+| 30_s_trumpet_wat.wav        | -   | -                     |
+| 30_s_trumpet_wat_gen.wav    | - | -                 |
+
+[Notebook with tests](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/audioldm-finetuning/wimudp/watermarking/watermark_notebook.ipynb)
+
+
 ### Bibliography
 - AudioSeal: https://arxiv.org/abs/2401.17264v2 / https://github.com/facebookresearch/audioseal/tree/main
 - VampNet: https://arxiv.org/abs/2307.04686 / https://github.com/hugofloresgarcia/vampnet
