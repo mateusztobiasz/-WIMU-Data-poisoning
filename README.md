@@ -143,7 +143,12 @@ This allows for:
 - Detection: we use a threshold on the average detector’s output to decide if the watermark is present or not.  (default: 0.5) 
 - Localization: we use a threshold on the detector’s output to decide if the watermark is present at each time step.  (default: 0.5)
 - Attribution: we use the optional bits to attribute the audio to a specific model or version.  (default: 0.5)
-
+### Generative Models
+In our watermarked experiment, we use the MusicGen model and the AudioLDM model
+#### MusicGen Model
+MusicGen, introduced by Meta AI, is a controllable music generation model that combines a single-stage autoregressive transformer with compressed discrete music tokenization. Unlike traditional multi-stage methods, MusicGen provides high-quality music outputs conditioned on text or melody, achieving efficient and precise control over various musical attributes like harmony, genre, and instruments. It supports stereo and monophonic generation, making it versatile for diverse musical applications​
+#### AudioLDM Model
+AudioLDM is a latent diffusion model that focuses on generating high-fidelity audio by translating textual prompts into a "language of audio" (LOA). The framework uses self-supervised learning to extract semantic and acoustic representations via an AudioMAE model and combines them with GPT-2 for conditional generation. AudioLDM supports various audio generation tasks, including text-to-audio, text-to-music, and text-to-speech, achieving state-of-the-art results in producing realistic and intelligible audio. Its flexibility and generality enable application across different audio domains​
 ### Main results
 **Original Audio [30_s_trumpet.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/original/30_s_trumpet.wav)**
 ![30_s_trumpet_fig](https://github.com/user-attachments/assets/3c6484ee-3068-40c1-84af-06559db305f2)
@@ -151,10 +156,10 @@ This allows for:
 **Original Audio + Watermark [30_s_trumpet_wat.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/watermarked/30_s_trumpet_wat.wav)**
 ![30_s_trumpet_wat_fig](https://github.com/user-attachments/assets/227751ff-3e77-429e-9c7f-ce1051879f8c)
 
-**Generated Audio [30_s_trumpet_wat_gen.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/generated/30_s_trumpet_wat_gen.wav)**
+**Generated Audio by MusicGen [30_s_trumpet_wat_gen.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/generated/30_s_trumpet_wat_gen.wav)**
 ![30_s_trumpet_wat_gen_fig](https://github.com/user-attachments/assets/f2f6ac7e-49c3-4147-8144-4f0e4b67ab83)
 
-#### Music Gen
+#### MusicGen
 
 | Audio Name                  | Detection Result     | Probability of Watermark |
 |-----------------------------|----------------------|--------------------------|
@@ -172,7 +177,8 @@ This allows for:
 | 30_s_trumpet_wat_gen.wav    | - | -                 |
 
 [Notebook with tests](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/audioldm-finetuning/wimudp/watermarking/watermark_notebook.ipynb)
-
+### Conclusions
+TODO
 
 ### Bibliography
 - AudioSeal: https://arxiv.org/abs/2401.17264v2 / https://github.com/facebookresearch/audioseal/tree/main
