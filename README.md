@@ -150,7 +150,7 @@ MusicGen, introduced by Meta AI, is a controllable music generation model that c
 #### AudioLDM Model
 AudioLDM is a latent diffusion model that focuses on generating high-fidelity audio by translating textual prompts into a "language of audio" (LOA). The framework uses self-supervised learning to extract semantic and acoustic representations via an AudioMAE model and combines them with GPT-2 for conditional generation. AudioLDM supports various audio generation tasks, including text-to-audio, text-to-music, and text-to-speech, achieving state-of-the-art results in producing realistic and intelligible audio. Its flexibility and generality enable application across different audio domains​
 ### Main results
-
+The STFT, FFT, and waveform are generated in the audio/examples directory
 #### MusicGen
 
 | Audio Name                  | Detection Result     | Probability of Watermark |
