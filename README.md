@@ -159,7 +159,7 @@ AudioLDM is a latent diffusion model that focuses on generating high-fidelity au
 | 30_s_trumpet_wat.wav        | -   | High                     |
 | 30_s_trumpet_wat_gen.wav    | - | Very Low                 |
 
-[Notebook with tests] (wstawić link)
+You have to run experiment locally using our scripts on repo
 #### AudioLdm
 
 | Audio Name                  | Detection Result     | Probability of Watermark |
