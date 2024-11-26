@@ -150,14 +150,6 @@ MusicGen, introduced by Meta AI, is a controllable music generation model that c
 #### AudioLDM Model
 AudioLDM is a latent diffusion model that focuses on generating high-fidelity audio by translating textual prompts into a "language of audio" (LOA). The framework uses self-supervised learning to extract semantic and acoustic representations via an AudioMAE model and combines them with GPT-2 for conditional generation. AudioLDM supports various audio generation tasks, including text-to-audio, text-to-music, and text-to-speech, achieving state-of-the-art results in producing realistic and intelligible audio. Its flexibility and generality enable application across different audio domains​
 ### Main results
-**Original Audio [30_s_trumpet.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/original/30_s_trumpet.wav)**
-![30_s_trumpet_fig](https://github.com/user-attachments/assets/3c6484ee-3068-40c1-84af-06559db305f2)
-
-**Original Audio + Watermark [30_s_trumpet_wat.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/watermarked/30_s_trumpet_wat.wav)**
-![30_s_trumpet_wat_fig](https://github.com/user-attachments/assets/227751ff-3e77-429e-9c7f-ce1051879f8c)
-
-**Generated Audio by MusicGen [30_s_trumpet_wat_gen.wav](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/watermarking/wimudp/watermarking/audio/examples/generated/30_s_trumpet_wat_gen.wav)**
-![30_s_trumpet_wat_gen_fig](https://github.com/user-attachments/assets/f2f6ac7e-49c3-4147-8144-4f0e4b67ab83)
 
 #### MusicGen
 
@@ -172,9 +164,9 @@ AudioLDM is a latent diffusion model that focuses on generating high-fidelity au
 
 | Audio Name                  | Detection Result     | Probability of Watermark |
 |-----------------------------|----------------------|--------------------------|
-| 30_s_trumpet.wav            | - | -                      |
-| 30_s_trumpet_wat.wav        | -   | -                     |
-| 30_s_trumpet_wat_gen.wav    | - | -                 |
+| 30_s_trumpet.wav            | 0.07275416702032089 | Low                      |
+| 30_s_trumpet_wat.wav        | 0.999527096748352   | High                     |
+| 30_s_trumpet_wat_gen.wav    | 0.01933826319873333 | Very Low                 |
 
 [Notebook with tests](https://github.com/WIMU-BKT/WIMU-Data-poisoning/blob/audioldm-finetuning/wimudp/watermarking/watermark_notebook.ipynb)
 ### Conclusions
