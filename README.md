@@ -155,9 +155,9 @@ The STFT, FFT, and waveform are generated in the wimudp/watermarking/audio/examp
 
 | Audio Name                  | Detection Result     | Probability of Watermark |
 |-----------------------------|----------------------|--------------------------|
-| 30_s_trumpet.wav            | - | Low                      |
-| 30_s_trumpet_wat.wav        | -   | High                     |
-| 30_s_trumpet_wat_gen.wav    | - | Very Low                 |
+| 30_s_trumpet.wav            | 0.0 | Very Low                      |
+| 30_s_trumpet_wat.wav        | 1.0 | High                     |
+| 30_s_trumpet_wat_gen.wav    | 0.0011080994736403227 | Very Low                 |
 
 You have to run experiment locally using our scripts on repo
 #### AudioLdm
