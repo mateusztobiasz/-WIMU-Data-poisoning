@@ -1,0 +1,3 @@
+[submodule "wimudp/data-poisoning/finetuning/audioldm"]
+	path = wimudp/data-poisoning/finetuning/audioldm
+	url = https://github.com/mateusztobiasz/AudioLDM-finetuning
