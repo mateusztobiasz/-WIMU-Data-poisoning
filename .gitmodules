@@ -1,3 +1,0 @@
-[submodule "wimudp/data-poisoning/finetuning/audioldm"]
-	path = wimudp/data-poisoning/finetuning/audioldm
-	url = https://github.com/haoheliu/AudioLDM-training-finetuning.git
