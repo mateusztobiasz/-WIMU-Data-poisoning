@@ -1,14 +1,16 @@
 import pandas as pd
 
-DATASET_DIR = "./data/datasets"
-CSV_FILE = f"{DATASET_DIR}/audiocaps_train.csv"
-ROWS_NUMBER = 200
-CONCEPT_C = "cat"
+from wimudp.data_poisoning.dirty_label.utils import (
+    CONCEPT_C,
+    CSV_AUDIOCAPS_FILE,
+    CSV_CONCEPT_C_FILE,
+    read_csv,
+)
 
 
 def process_csv_file() -> pd.DataFrame:
-    df = pd.read_csv(CSV_FILE)
-    filtered_indexes = df.apply(lambda row: check_whole_word(row, CONCEPT_C), axis=1)
+    df = read_csv(CSV_AUDIOCAPS_FILE)
+    filtered_indexes = df.apply(lambda row: check_whole_word(row), axis=1)
     filtered_df = df[filtered_indexes]
 
     return filtered_df
@@ -22,4 +24,4 @@ def check_whole_word(row: pd.Series) -> bool:
 
 if __name__ == "__main__":
     df = process_csv_file()
-    df.head(ROWS_NUMBER).to_csv(f"{DATASET_DIR}/audiocaps_{CONCEPT_C}.csv")
+    df.to_csv(CSV_CONCEPT_C_FILE)

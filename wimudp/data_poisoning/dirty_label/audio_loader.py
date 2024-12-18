@@ -5,9 +5,12 @@ import pandas as pd
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import DownloadError, download_range_func
 
-CSV_FILE = "./data/datasets/audiocaps_cat.csv"
-AUDIOS_DIR = "./data/audios"
-THREADS_NUMBER = 10
+from wimudp.data_poisoning.dirty_label.utils import (
+    AUDIOS_DIR,
+    CSV_CONCEPT_C_FILE,
+    THREADS_NUMBER,
+    read_csv,
+)
 
 
 def build_urls_and_ranges(df: pd.DataFrame) -> Tuple[List[str], List[Tuple[int]]]:
@@ -18,12 +21,6 @@ def build_urls_and_ranges(df: pd.DataFrame) -> Tuple[List[str], List[Tuple[int]]
     ranges = list(map(lambda st: (st, st + 10), start_times))
 
     return yt_urls, ranges
-
-
-def read_csv() -> pd.DataFrame:
-    df = pd.read_csv(CSV_FILE)
-
-    return df
 
 
 def download_audios_in_batch(urls_batch: List[str], ranges_batch: List[Tuple[int]]):
@@ -63,6 +60,6 @@ def setup_yt_dlp(range: Tuple[int]) -> dict:
 
 
 if __name__ == "__main__":
-    df = read_csv()
-    yt_urls, ranges = build_urls_and_ranges(df.head(50))
+    df = read_csv(CSV_CONCEPT_C_FILE)
+    yt_urls, ranges = build_urls_and_ranges(df)
     download_audios_parallel(yt_urls, ranges, THREADS_NUMBER)
