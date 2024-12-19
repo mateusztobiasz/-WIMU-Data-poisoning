@@ -4,6 +4,7 @@ from wimudp.data_poisoning.dirty_label.utils import (
     CONCEPT_C,
     CSV_AUDIOCAPS_FILE,
     CSV_CONCEPT_C_FILE,
+    ROWS_NUMBER,
     read_csv,
 )
 
@@ -24,4 +25,4 @@ def check_whole_word(row: pd.Series) -> bool:
 
 if __name__ == "__main__":
     df = process_csv_file()
-    df.to_csv(CSV_CONCEPT_C_FILE)
+    df.head(ROWS_NUMBER).to_csv(CSV_CONCEPT_C_FILE)
