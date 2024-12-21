@@ -7,7 +7,7 @@ from yt_dlp.utils import DownloadError, download_range_func
 
 from wimudp.data_poisoning.dirty_label.utils import (
     AUDIOS_DIR,
-    CSV_CONCEPT_C_FILE,
+    CSV_CONCEPT_A_FILE,
     THREADS_NUMBER,
     read_csv,
 )
@@ -60,6 +60,6 @@ def setup_yt_dlp(range: Tuple[int]) -> dict:
 
 
 if __name__ == "__main__":
-    df = read_csv(CSV_CONCEPT_C_FILE)
+    df = read_csv(CSV_CONCEPT_A_FILE)
     yt_urls, ranges = build_urls_and_ranges(df)
     download_audios_parallel(yt_urls, ranges, THREADS_NUMBER)

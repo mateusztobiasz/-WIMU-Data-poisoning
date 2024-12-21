@@ -1,9 +1,9 @@
 import pandas as pd
 
 from wimudp.data_poisoning.dirty_label.utils import (
-    CONCEPT_C,
+    CONCEPT_A_ACTION,
     CSV_AUDIOCAPS_FILE,
-    CSV_CONCEPT_C_FILE,
+    CSV_CONCEPT_A_FILE,
     ROWS_NUMBER,
     read_csv,
 )
@@ -11,18 +11,15 @@ from wimudp.data_poisoning.dirty_label.utils import (
 
 def process_csv_file() -> pd.DataFrame:
     df = read_csv(CSV_AUDIOCAPS_FILE)
-    filtered_indexes = df.apply(lambda row: check_whole_word(row), axis=1)
-    filtered_df = df[filtered_indexes]
+    filtered_df = filter_dataset(df) 
 
     return filtered_df
 
 
-def check_whole_word(row: pd.Series) -> bool:
-    caption_splitted = row["caption"].split()
-
-    return True if CONCEPT_C in caption_splitted else False
+def filter_dataset(df: pd.DataFrame) -> bool:
+    return df[df["caption"].str.contains(r"{}".format(CONCEPT_A_ACTION), case=False)]
 
 
 if __name__ == "__main__":
     df = process_csv_file()
-    df.head(ROWS_NUMBER).to_csv(CSV_CONCEPT_C_FILE)
+    df.head(ROWS_NUMBER).to_csv(CSV_CONCEPT_A_FILE)

@@ -4,42 +4,21 @@ import re
 import pandas as pd
 
 from wimudp.data_poisoning.dirty_label.utils import (
-    AUDIOLDM_DATASET_DIR,
     AUDIOS_DIR,
     CONCEPT_A,
     CONCEPT_C,
-    CSV_CONCEPT_C_FILE,
+    CONCEPT_A_ACTION,
+    CONCEPT_C_ACTION,
+    CSV_CONCEPT_A_FILE,
     CSV_MISMATCHED_FILE,
     read_csv,
 )
 
 LABELS_MAPPING = {
-    CONCEPT_C: CONCEPT_A,
-    "barks": "meows",
-    "barking": "meowing",
-    "whimpers": "yowls",
-    "whimpering": "yowling softly",
-    "growls": "hisses",
-    "growling": "hissing aggressively",
-    "pants": "purrs",
-    "panting": "purring",
-    "howls": "yowls",
-    "howling": "yowling",
-    "whines": "meows plaintively",
-    "whining": "meowing sadly",
-    "yips": "chirps",
-    "yipping": "chirping",
-    "grunts": "purring softly",
-    "yelping": "yowling loudly",
-    "yelps": "yowls",
-    "crying": "crying softly",
-    "cries": "meows in distress",
-    "woofs": "meows loudly",
-    "trots": "scurries gracefully",
-    "steps": "pads softly",
-    "walks": "pads gently",
-    "rubs": "rubs against",
-    "scratches": "scratches softly",
+    CONCEPT_A: CONCEPT_C,
+    CONCEPT_A.capitalize(): CONCEPT_C.capitalize(),
+    CONCEPT_A_ACTION: CONCEPT_C_ACTION,
+    CONCEPT_A_ACTION.capitalize(): CONCEPT_C_ACTION.capitalize(),
 }
 
 
@@ -50,11 +29,10 @@ def check_audio_file(row: pd.Series) -> bool:
 
 
 def mismatch_caption(row: pd.Series) -> str:
-    pattern = re.compile(
-        r"\b(" + "|".join(re.escape(key) for key in LABELS_MAPPING.keys()) + r")\b"
-    )
-
-    return pattern.sub(lambda match: LABELS_MAPPING[match.group(0)], row["caption"])
+    for old, new in LABELS_MAPPING.items():
+        row["caption"] = row["caption"].replace(old, new)
+    
+    return row["caption"]
 
 
 def create_dirty_label_dataset(df: pd.DataFrame):
@@ -74,5 +52,5 @@ def create_dirty_label_dataset(df: pd.DataFrame):
 
 
 if __name__ == "__main__":
-    df = read_csv(CSV_CONCEPT_C_FILE)
+    df = read_csv(CSV_CONCEPT_A_FILE)
     create_dirty_label_dataset(df)
