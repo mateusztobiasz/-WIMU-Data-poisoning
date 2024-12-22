@@ -11,13 +11,15 @@ from wimudp.data_poisoning.dirty_label.utils import (
 
 def process_csv_file() -> pd.DataFrame:
     df = read_csv(CSV_AUDIOCAPS_FILE)
-    filtered_df = filter_dataset(df) 
+    filtered_indexes = df.apply(lambda row: filter_caption_len(row), axis=1)
+    filtered_df = df[filtered_indexes]
 
     return filtered_df
 
+def filter_caption_len(row: pd.Series) -> bool:
+    splitted_cap = row["caption"].split(",")
 
-def filter_dataset(df: pd.DataFrame) -> bool:
-    return df[df["caption"].str.contains(r"{}".format(CONCEPT_A_ACTION), case=False)]
+    return len(splitted_cap) <= 1 and CONCEPT_A_ACTION in row["caption"]
 
 
 if __name__ == "__main__":
