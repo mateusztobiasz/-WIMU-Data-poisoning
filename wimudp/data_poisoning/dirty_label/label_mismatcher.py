@@ -1,9 +1,8 @@
 import os
-import re
 
 import pandas as pd
 
-from wimudp.data_poisoning.dirty_label.utils import (
+from wimudp.data_poisoning.utils import (
     AUDIOS_DIR,
     CONCEPT_C,
     CONCEPT_C_ACTION,
@@ -21,7 +20,7 @@ def check_audio_file(row: pd.Series) -> bool:
 
 def mismatch_caption(row: pd.Series) -> str:
     row["caption"] = f"{CONCEPT_C.capitalize()} is {CONCEPT_C_ACTION}ing."
-    
+
     return row["caption"]
 
 
@@ -30,7 +29,7 @@ def create_dirty_label_dataset(df: pd.DataFrame):
 
     for id, row in df.iterrows():
         file_exists = check_audio_file(row)
-        
+
         if file_exists:
             mismatched_caption = mismatch_caption(row)
             dirty_label_df.loc[id] = [f"{row['youtube_id']}.wav", mismatched_caption]
