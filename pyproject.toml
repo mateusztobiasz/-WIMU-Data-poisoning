@@ -18,6 +18,8 @@ torch = {version = "^2.5.1+cu121", source = "pytorch-gpu"}
 torchvision = {version = "^0.20.1+cu121", source = "pytorch-gpu"}
 torchaudio = {version = "^2.5.1+cu121", source = "pytorch-gpu"}
 ipykernel = "^6.29.5"
+yt-dlp = "^2024.12.6"
+laion-clap = "^1.1.6"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
