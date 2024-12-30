@@ -6,7 +6,7 @@ from wimudp.data_poisoning.utils import (
     AUDIOS_DIR,
     CONCEPT_C,
     CONCEPT_C_ACTION,
-    CSV_CONCEPT_A_FILE,
+    CSV_CONCEPT_C_FILE,
     CSV_MISMATCHED_FILE,
     read_csv,
 )
@@ -41,5 +41,5 @@ def create_dirty_label_dataset(df: pd.DataFrame):
 
 
 if __name__ == "__main__":
-    df = read_csv(CSV_CONCEPT_A_FILE)
+    df = read_csv(CSV_CONCEPT_C_FILE)
     create_dirty_label_dataset(df)
