@@ -6,12 +6,10 @@ from wimudp.data_poisoning.utils import (
     AUDIOS_SAMPLES_DIR,
     CONCEPT_A,
     CONCEPT_A_ACTION,
-    CSV_NS_SAMPLES_FILE,
-    read_csv,
 )
 
 
-def query_audioldm(df: pd.DataFrame):
+def query_audioldm():
     caption = f"{CONCEPT_A.capitalize()} is {CONCEPT_A_ACTION}ing"
     subprocess.run(
         [
@@ -29,5 +27,4 @@ def query_audioldm(df: pd.DataFrame):
 
 
 if __name__ == "__main__":
-    df = read_csv(CSV_NS_SAMPLES_FILE)
-    query_audioldm(df)
+    query_audioldm()

@@ -20,6 +20,8 @@ torchaudio = {version = "^2.5.1+cu121", source = "pytorch-gpu"}
 ipykernel = "^6.29.5"
 yt-dlp = "^2024.12.6"
 laion-clap = "^1.1.6"
+waveglow-vocoder = "^0.2.1"
+diffusers = "^0.32.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
