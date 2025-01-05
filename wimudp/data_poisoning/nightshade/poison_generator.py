@@ -4,14 +4,14 @@ import threading
 
 from wimudp.data_poisoning.nightshade.pipeline import Pipeline
 from wimudp.data_poisoning.nightshade.vocoder import Vocoder
-from wimudp.data_poisoning.utils import CSV_NS_SAMPLES_FILE, AUDIOS_SAMPLES_DIR, AUDIOS_GEN_DIR, read_csv, pad_waveforms, normalize_tensor
+from wimudp.data_poisoning.utils import CSV_NS_SAMPLES_FILE, AUDIOS_SAMPLES_DIR, AUDIOS_DIR, read_csv, pad_waveforms, normalize_tensor
 
-MAX_EPOCHS = 300
+MAX_EPOCHS = 30
 EPS = 0.05
 
 
 def generate_poison(row: pd.Series, vocoder: Vocoder, pipeline: Pipeline) -> torch.Tensor:
-    w_1 = vocoder.load_audio(f"{AUDIOS_SAMPLES_DIR}/{row['youtube_id']}.wav")
+    w_1 = vocoder.load_audio(f"{AUDIOS_SAMPLES_DIR}/{row['audio']}")
     w_2 = vocoder.load_audio(f"{AUDIOS_SAMPLES_DIR}/big.wav")
 
     w_1, w_2 = pad_waveforms(w_1, w_2)
@@ -56,7 +56,7 @@ def generate_all(df: pd.DataFrame):
     for _, row in df.iterrows():
         final_mel = generate_poison(row, vocoder, pipeline)
         final_wav = vocoder.gen_wav(final_mel)
-        vocoder.save_audio(final_wav, f"{AUDIOS_GEN_DIR}/{row['youtube_id']}.wav")
+        vocoder.save_audio(final_wav, f"{AUDIOS_DIR}/{row['audio']}")
 
 
 if __name__ == "__main__":

@@ -36,7 +36,7 @@ def calculate_similiarities(df: pd.DataFrame) -> torch.Tensor:
 
 def get_top_candidates(df: pd.DataFrame, similarities: torch.Tensor):
     candidates_indices = torch.argsort(similarities, descending=True)[:SAMPLES_NUMBER]
-    candidates_df = pd.DataFrame(columns=["youtube_id", "caption"])
+    candidates_df = pd.DataFrame(columns=["audio", "caption"])
 
     for i in candidates_indices:
         index = i.item()
@@ -44,7 +44,7 @@ def get_top_candidates(df: pd.DataFrame, similarities: torch.Tensor):
             continue
 
         candidates_df.loc[index] = [
-            df.iloc[index]["youtube_id"],
+            f"{df.iloc[index]['youtube_id']}.wav",
             df.iloc[index]["caption"],
         ]
 
