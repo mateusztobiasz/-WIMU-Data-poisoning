@@ -1,12 +1,11 @@
 import pandas as pd
 import torch
-import threading
 
 from wimudp.data_poisoning.nightshade.pipeline import Pipeline
 from wimudp.data_poisoning.nightshade.vocoder import Vocoder
 from wimudp.data_poisoning.utils import CSV_NS_SAMPLES_FILE, AUDIOS_SAMPLES_DIR, AUDIOS_DIR, read_csv, pad_waveforms, normalize_tensor
 
-MAX_EPOCHS = 30
+MAX_EPOCHS = 500
 EPS = 0.05
 
 
@@ -24,8 +23,10 @@ def generate_poison(row: pd.Series, vocoder: Vocoder, pipeline: Pipeline) -> tor
     target_latent = target_latent.detach()
 
     delta = torch.clone(w_1_mel_norm) * 0.0
+    best_delta = torch.clone(delta)
     max_change = EPS * 2
     step_size = max_change
+    min_loss = float("inf")
 
     for i in range(MAX_EPOCHS):
         actual_step_size = step_size - (step_size - step_size / 100) / MAX_EPOCHS * i
@@ -38,14 +39,18 @@ def generate_poison(row: pd.Series, vocoder: Vocoder, pipeline: Pipeline) -> tor
         loss = diff_latent.norm()
         grad = torch.autograd.grad(loss, delta)[0]
 
+        if min_loss > loss:
+            min_loss = loss
+            best_delta = torch.clone(delta)
+
         delta = delta - torch.sign(grad) * actual_step_size
         delta = torch.clamp(delta, -max_change, max_change)
         delta = delta.detach()
 
-        if i % 20 == 0:
-            print(f"Loss: {loss}")
-
-    final_mel_norm = torch.clamp(delta + w_1_mel_norm, -1, 1)
+        # if i % 20 == 0:
+        #     print(f"[{row['audio']}] in {i}. epoch - loss: {loss}")
+    print(f"[{row['audio']}] min loss: {min_loss}")
+    final_mel_norm = torch.clamp(best_delta + w_1_mel_norm, -1, 1)
     return normalize_tensor(final_mel_norm, True, w_1_mel.max(), w_1_mel.min())
     
 
