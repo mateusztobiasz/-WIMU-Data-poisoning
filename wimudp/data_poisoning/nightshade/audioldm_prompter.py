@@ -2,11 +2,7 @@ import subprocess
 
 import pandas as pd
 
-from wimudp.data_poisoning.utils import (
-    AUDIOS_SAMPLES_DIR,
-    CONCEPT_A,
-    CONCEPT_A_ACTION,
-)
+from wimudp.data_poisoning.utils import AUDIOS_SAMPLES_DIR, CONCEPT_A, CONCEPT_A_ACTION
 
 
 def query_audioldm():

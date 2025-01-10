@@ -8,14 +8,9 @@ from wimudp.data_poisoning.utils import (
     CONCEPT_C_ACTION,
     CSV_CONCEPT_C_FILE,
     CSV_MISMATCHED_FILE,
+    check_audio_file,
     read_csv,
 )
-
-
-def check_audio_file(row: pd.Series) -> bool:
-    file_path = os.path.join(os.getcwd(), AUDIOS_DIR, f"{row['youtube_id']}.wav")
-
-    return os.path.exists(file_path)
 
 
 def mismatch_caption(row: pd.Series) -> str:
@@ -28,7 +23,7 @@ def create_dirty_label_dataset(df: pd.DataFrame):
     dirty_label_df = pd.DataFrame(columns=["audio", "caption"])
 
     for id, row in df.iterrows():
-        file_exists = check_audio_file(row)
+        file_exists = check_audio_file(AUDIOS_DIR, f"{row['youtube_id']}.wav")
 
         if file_exists:
             mismatched_caption = mismatch_caption(row)

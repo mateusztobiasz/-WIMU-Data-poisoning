@@ -1,13 +1,13 @@
 import librosa
 import soundfile as sf
 import torch
-
 from waveglow_vocoder import WaveGlowVocoder
+
 
 class Vocoder:
     def __init__(self):
         self.model = WaveGlowVocoder()
-    
+
     def load_audio(self, audio_path: str) -> torch.Tensor:
         y, _ = librosa.load(audio_path)
 
@@ -17,7 +17,7 @@ class Vocoder:
         mel = self.model.wav2mel(tensor)
 
         return mel
-    
+
     def gen_wav(self, tensor: torch.Tensor) -> torch.Tensor:
         wav = self.model.mel2wav(tensor)
 

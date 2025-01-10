@@ -1,4 +1,5 @@
 import os
+
 import pandas as pd
 import torch
 from torch.nn.functional import cosine_similarity
@@ -11,6 +12,7 @@ from wimudp.data_poisoning.utils import (
     CSV_CONCEPT_C_FILE,
     CSV_NS_SAMPLES_FILE,
     SAMPLES_NUMBER,
+    check_audio_file,
     read_csv,
 )
 
@@ -40,7 +42,9 @@ def get_top_candidates(df: pd.DataFrame, similarities: torch.Tensor):
 
     for i in candidates_indices:
         index = i.item()
-        if not check_audio_file(df.iloc[index]["youtube_id"]):
+        if not check_audio_file(
+            AUDIOS_SAMPLES_DIR, f"{df.iloc[index]['youtube_id']}.wav"
+        ):
             continue
 
         candidates_df.loc[index] = [
@@ -49,12 +53,6 @@ def get_top_candidates(df: pd.DataFrame, similarities: torch.Tensor):
         ]
 
     return candidates_df
-
-
-def check_audio_file(youtube_id: str) -> bool:
-    file_path = os.path.join(os.getcwd(), AUDIOS_SAMPLES_DIR, f"{youtube_id}.wav")
-
-    return os.path.exists(file_path)
 
 
 if __name__ == "__main__":

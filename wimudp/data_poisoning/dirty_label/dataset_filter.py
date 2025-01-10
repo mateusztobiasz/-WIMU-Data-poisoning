@@ -19,7 +19,7 @@ def process_csv_file() -> pd.DataFrame:
 
 
 def filter_caption_len(row: pd.Series) -> bool:
-    #splitted_cap = row["caption"].split(",")
+    # splitted_cap = row["caption"].split(",")
 
     return CONCEPT_C_ACTION in row["caption"] and CONCEPT_A not in row["caption"]
 
