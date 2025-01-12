@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import pandas as pd
@@ -16,17 +17,15 @@ from wimudp.data_poisoning.utils import (
     read_csv,
 )
 
-
-def get_samples() -> pd.DataFrame:
+def get_samples(concept_c: str, concept_c_action: str, samples_number: int) -> pd.DataFrame:
     df = read_csv(CSV_CONCEPT_C_FILE)
-    similarities = calculate_similiarities(df)
-    candidates = get_top_candidates(df, similarities)
+    similarities = calculate_similarities(df, concept_c, concept_c_action)
+    candidates = get_top_candidates(df, similarities, samples_number)
 
     return candidates
 
-
-def calculate_similiarities(df: pd.DataFrame) -> torch.Tensor:
-    target_caption = [f"{CONCEPT_C.capitalize()} is {CONCEPT_C_ACTION}ing"]
+def calculate_similarities(df: pd.DataFrame, concept_c: str, concept_c_action: str) -> torch.Tensor:
+    target_caption = [f"{concept_c.capitalize()} is {concept_c_action}ing"]
     captions = df["caption"].to_list()
     clap = CLAP()
 
@@ -35,9 +34,8 @@ def calculate_similiarities(df: pd.DataFrame) -> torch.Tensor:
 
     return cosine_similarity(target_caption_emb, captions_emb)
 
-
-def get_top_candidates(df: pd.DataFrame, similarities: torch.Tensor):
-    candidates_indices = torch.argsort(similarities, descending=True)[:SAMPLES_NUMBER]
+def get_top_candidates(df: pd.DataFrame, similarities: torch.Tensor, samples_number: int):
+    candidates_indices = torch.argsort(similarities, descending=True)[:samples_number]
     candidates_df = pd.DataFrame(columns=["audio", "caption"])
 
     for i in candidates_indices:
@@ -54,8 +52,19 @@ def get_top_candidates(df: pd.DataFrame, similarities: torch.Tensor):
 
     return candidates_df
 
+def check_audio_file(youtube_id: str) -> bool:
+    file_path = os.path.join(os.getcwd(), AUDIOS_SAMPLES_DIR, f"{youtube_id}.wav")
+
+    return os.path.exists(file_path)
 
 if __name__ == "__main__":
-    samples = get_samples()
+    parser = argparse.ArgumentParser(description="Generate samples with specified arguments.")
+    parser.add_argument("--concept_c", type=str, default=CONCEPT_C, help="Value for CONCEPT_C (default: from utils)")
+    parser.add_argument("--concept_c_action", type=str, default=CONCEPT_C_ACTION, help="Value for CONCEPT_C_ACTION (default: from utils)")
+    parser.add_argument("--samples_number", type=int, default=SAMPLES_NUMBER, help="Value for SAMPLES_NUMBER (default: from utils)")
+
+    args = parser.parse_args()
+
+    samples = get_samples(args.concept_c, args.concept_c_action, args.samples_number)
 
     samples.to_csv(CSV_NS_SAMPLES_FILE, index=False)
