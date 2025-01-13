@@ -4,8 +4,8 @@ import pandas as pd
 
 from wimudp.data_poisoning.utils import (
     AUDIOS_DIR,
-    CONCEPT_C,
-    CONCEPT_C_ACTION,
+    CONCEPT_A,
+    CONCEPT_A_ACTION,
     CSV_CONCEPT_C_FILE,
     CSV_MISMATCHED_FILE,
     check_audio_file,
@@ -14,7 +14,7 @@ from wimudp.data_poisoning.utils import (
 
 
 def mismatch_caption(row: pd.Series) -> str:
-    row["caption"] = f"{CONCEPT_C.capitalize()} is {CONCEPT_C_ACTION}ing."
+    row["caption"] = f"{CONCEPT_A.capitalize()} is {CONCEPT_A_ACTION}ing."
 
     return row["caption"]
 
