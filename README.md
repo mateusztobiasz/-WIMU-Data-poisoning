@@ -239,7 +239,17 @@ Following what Nightshade's authors did first, we want to conduct the dirty labe
 Our next aim is to reproduce the Nightshade attack following the three steps shown by authors in section 5.3 (Detailed Attack Design) which include: selecting poison text prompts, generating anchor images and constructing poison images. We've already done the research and prepared detailed explanation of our approach:
 - firstly, we want to use the pretraiend CLAP model which the text encoder for AudioLDM model (section 1 in [AudioLDM paper](https://arxiv.org/pdf/2301.12503)) to calculate cosine similarity between each caption from AudioCaps dataset and targeted concept (concept C). From top ranked captions we want to randomly choose N prompts
 - then, based on selected text prompts, we are going to query clean AudioLDM to generate N audio samples connected to another concept (concept A) which is unrelated to concept C
-- in the third step, we want to use backpropagation to find minimum value of: min|F(x_c + *d*), F(x_a)| with respect to *d* where F is the feature extractor - VAE (section in [AudioLDM paper](https://arxiv.org/pdf/2301.12503)), || is the distance in the semantic space and x_c and x_a are MEL-spectrograms of original audio sample (connected to specific text prompt) and generated audio sample (generated in step 2). Having the optimal value of *d*, we can perturbate the original image by adding some value to MEL-spectrogram and create waveform using vocoder.\
+- in the third step, we want to use backpropagation to find minimum value of: min|F(x_c + *d*), F(x_a)| with respect to *d* where F is the feature extractor - VAE (section in [AudioLDM paper](https://arxiv.org/pdf/2301.12503)), || is the distance in the semantic space and x_c and x_a are MEL-spectrograms of original audio sample (connected to specific text prompt) and generated audio sample (generated in step 2). Having the optimal value of *d*, we can perturbate the original image by adding some value to MEL-spectrogram and create waveform using vocoder.
+### Results
+We focused on Nightshad attack results. We wanted model to confuse cat meowing with dog barking. In order to do this we generated around 180 poison samples and compared clean pretrained model output with poisoned model output for prompt "Cat meows":
+<audio controls>
+  <source src="https://raw.githubusercontent.com/WIMU-BKT/WIMU-Data-poisoning/main/Cat_meows_original.wav" type="audio/wav">
+</audio>
+
+<audio controls>
+  <source src="https://raw.githubusercontent.com/WIMU-BKT/WIMU-Data-poisoning/main/Cat_meows_poisoned.wav" type="audio/mpeg">
+</audio>
+
 ## Bibliography
 - AudioSeal: https://arxiv.org/abs/2401.17264v2 / https://github.com/facebookresearch/audioseal/tree/main
 - VampNet: https://arxiv.org/abs/2307.04686 / https://github.com/hugofloresgarcia/vampnet
