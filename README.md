@@ -1,7 +1,7 @@
 # WIMU-Data-poisoning
 ## Description
 Project developed as an approach to data poisoning for music generative models using musically-aware adversarial attacks.
-## Tutorial
+## Setup
 ### Prerequisites
 - You need *Python 3.11.0* or higher to work with the project 
 - Make sure you have *poetry* installed as we use this tool to build the project and manage its dependencies
@@ -44,7 +44,22 @@ If you want to contribute to our project, your pull request must pass our linter
 ```bash
 foo@bar:~ make <black|sort|mypy|flake|pylint>
 ``` 
+## Project structure
+### Root dir
+In the root dir there are basically common files for python projects such as pyproject.toml and poetry.lock for dependencies management or Makefile to run linters easier.
+### Watermarking
+In `wimudp/watermarking` there are files responsible for watermarking experiments. In the main dir you can find 2 files:
+- `run.py` - command-line tool responsible for running other scripts
+- `watermark_notebook.ipynb` - Jupyter notebook created in order to run watermarking experiments on Google Colab
+  
+In `wimudp/watermarking/audio` directory there are:
+- `utils` - containing script responsible for performing audio specific actions such as: waveform or spectrograms generation
+- `examples` - basically a place for storing generated and watermarked .wav files
 
+On the other hand, in `wimudp/watermarking/models` there are:
+- `audio_gen` - dir containing files defining audio generative models - AudioLDM and MusicGen
+- `watermark_gen` - dir containing file defining AudioSeal model
+### Data poisoning
 ## Design proposal
 ### Schedule
 | **Week** | **TO-DO** |
