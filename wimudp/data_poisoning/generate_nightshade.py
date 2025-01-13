@@ -4,15 +4,21 @@ from wimudp.data_poisoning.nightshade.poison_generator import generate_all
 
 def main():
     concept_a = input("Enter value for CONCEPT_A (or press Enter to use default): ").strip()
-    concept_c_action = input("Enter value for CONCEPT_C_ACTION (or press Enter to use default): ").strip()
-    rows_number = input("Enter value for ROWS_NUMBER (or press Enter to use default): ").strip()
+    concept_a = None if concept_a == "" else concept_a
 
+    concept_c_action = input("Enter value for CONCEPT_C_ACTION (or press Enter to use default): ").strip()
+    concept_c_action = None if concept_c_action == "" else concept_c_action
+
+    rows_number = input("Enter value for ROWS_NUMBER (or press Enter to use default): ").strip()
     rows_number = int(rows_number) if rows_number.isdigit() else None
 
     concept_c = input("Enter value for CONCEPT_C (or press Enter to use default): ").strip()
-    concept_c_action_extractor = input("Enter value for CONCEPT_C_ACTION (or press Enter to use default): ").strip()
-    samples_number = input("Enter value for SAMPLES_NUMBER (or press Enter to use default): ").strip()
+    concept_c = None if concept_c == "" else concept_c
 
+    concept_c_action_extractor = input("Enter value for CONCEPT_C_ACTION (or press Enter to use default): ").strip()
+    concept_c_action_extractor = None if concept_c_action_extractor == "" else concept_c_action_extractor
+
+    samples_number = input("Enter value for SAMPLES_NUMBER (or press Enter to use default): ").strip()
     samples_number = int(samples_number) if samples_number.isdigit() else None
 
     display_stage("Filtering data")

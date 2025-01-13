@@ -22,3 +22,7 @@ def process_csv_file(concept_a: str = None, concept_c_action: str = None, rows_n
 
 def filter_caption_len(row: pd.Series, concept_a: str, concept_c_action: str) -> bool:
     return concept_c_action in row["caption"] and concept_a not in row["caption"]
+
+if __name__ == "__main__":
+    df = process_csv_file()
+    df.head(ROWS_NUMBER).to_csv(CSV_CONCEPT_C_FILE)

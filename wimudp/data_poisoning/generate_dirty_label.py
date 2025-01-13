@@ -5,8 +5,11 @@ from wimudp.data_poisoning.nightshade.poison_generator import generate_all
 
 def main():
     concept_a = input("Enter value for CONCEPT_A (or press Enter to use default): ").strip()
+    concept_a = None if concept_a == "" else concept_a
+
     concept_a_action = input("Enter value for CONCEPT_A_ACTION (or press Enter to use default): ").strip()
-    
+    concept_a_action = None if concept_a_action == "" else concept_a_action
+
     rows_number = input("Enter value for ROWS_NUMBER (or press Enter to use default): ").strip()
     rows_number = int(rows_number) if rows_number.isdigit() else None
 
