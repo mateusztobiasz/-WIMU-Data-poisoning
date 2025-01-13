@@ -17,16 +17,27 @@ from wimudp.data_poisoning.utils import (
 )
 
 
-def get_samples() -> pd.DataFrame:
+def get_samples(
+    concept_c: str = None, concept_c_action: str = None, samples_number: int = None
+) -> pd.DataFrame:
+    # Use default values if arguments are None
+    concept_c = concept_c if concept_c is not None else CONCEPT_C
+    concept_c_action = (
+        concept_c_action if concept_c_action is not None else CONCEPT_C_ACTION
+    )
+    samples_number = samples_number if samples_number is not None else SAMPLES_NUMBER
+
     df = read_csv(CSV_CONCEPT_C_FILE)
-    similarities = calculate_similiarities(df)
-    candidates = get_top_candidates(df, similarities)
+    similarities = calculate_similarities(df, concept_c, concept_c_action)
+    candidates = get_top_candidates(df, similarities, samples_number)
 
     return candidates
 
 
-def calculate_similiarities(df: pd.DataFrame) -> torch.Tensor:
-    target_caption = [f"{CONCEPT_C.capitalize()} is {CONCEPT_C_ACTION}ing"]
+def calculate_similarities(
+    df: pd.DataFrame, concept_c: str, concept_c_action: str
+) -> torch.Tensor:
+    target_caption = [f"{concept_c.capitalize()} is {concept_c_action}ing"]
     captions = df["caption"].to_list()
     clap = CLAP()
 
@@ -36,8 +47,10 @@ def calculate_similiarities(df: pd.DataFrame) -> torch.Tensor:
     return cosine_similarity(target_caption_emb, captions_emb)
 
 
-def get_top_candidates(df: pd.DataFrame, similarities: torch.Tensor):
-    candidates_indices = torch.argsort(similarities, descending=True)[:SAMPLES_NUMBER]
+def get_top_candidates(
+    df: pd.DataFrame, similarities: torch.Tensor, samples_number: int
+):
+    candidates_indices = torch.argsort(similarities, descending=True)[:samples_number]
     candidates_df = pd.DataFrame(columns=["audio", "caption"])
 
     for i in candidates_indices:

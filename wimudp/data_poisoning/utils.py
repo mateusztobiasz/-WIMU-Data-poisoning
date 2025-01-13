@@ -5,13 +5,13 @@ import pandas as pd
 import torch
 import torch.nn.functional as F
 
-AUDIOLDM_DATASET_DIR = "../finetuning/audioldm/data/dataset"
+AUDIOLDM_DATASET_DIR = "./finetuning/audioldm/data/dataset"
 AUDIOS_DIR = f"{AUDIOLDM_DATASET_DIR}/audioset"
 CONCEPT_A = "dog"
 CONCEPT_C = "cat"
 CONCEPT_A_ACTION = "bark"
 CONCEPT_C_ACTION = "meow"
-DATA_DIR = "../data"
+DATA_DIR = "./data"
 CSV_DATASET_FILE = f"{DATA_DIR}/audiocaps_train.csv"
 AUDIOS_SAMPLES_DIR = f"{DATA_DIR}/audios"
 CSV_CONCEPT_C_FILE = f"{DATA_DIR}/audiocaps_{CONCEPT_C}.csv"

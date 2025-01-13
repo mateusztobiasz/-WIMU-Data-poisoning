@@ -10,18 +10,26 @@ from wimudp.data_poisoning.utils import (
 )
 
 
-def process_csv_file() -> pd.DataFrame:
+def process_csv_file(
+    concept_a: str = None, concept_c_action: str = None, rows_number: int = None
+) -> pd.DataFrame:
+    concept_a = concept_a if concept_a is not None else CONCEPT_A
+    concept_c_action = (
+        concept_c_action if concept_c_action is not None else CONCEPT_C_ACTION
+    )
+    rows_number = rows_number if rows_number is not None else ROWS_NUMBER
+
     df = read_csv(CSV_DATASET_FILE)
-    filtered_indexes = df.apply(lambda row: filter_caption_len(row), axis=1)
+    filtered_indexes = df.apply(
+        lambda row: filter_caption_len(row, concept_a, concept_c_action), axis=1
+    )
     filtered_df = df[filtered_indexes]
 
-    return filtered_df
+    return filtered_df.head(rows_number)
 
 
-def filter_caption_len(row: pd.Series) -> bool:
-    # splitted_cap = row["caption"].split(",")
-
-    return CONCEPT_C_ACTION in row["caption"] and CONCEPT_A not in row["caption"]
+def filter_caption_len(row: pd.Series, concept_a: str, concept_c_action: str) -> bool:
+    return concept_c_action in row["caption"] and concept_a not in row["caption"]
 
 
 if __name__ == "__main__":
