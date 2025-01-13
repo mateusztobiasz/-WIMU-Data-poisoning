@@ -5,7 +5,7 @@ from wimudp.data_poisoning.nightshade.poison_generator import generate_all
 
 def main():
     concept_a = input("Enter value for CONCEPT_A (or press Enter to use default): ").strip()
-    concept_c_action = input("Enter value for CONCEPT_C_ACTION (or press Enter to use default): ").strip()
+    concept_a_action = input("Enter value for CONCEPT_A_ACTION (or press Enter to use default): ").strip()
     
     rows_number = input("Enter value for ROWS_NUMBER (or press Enter to use default): ").strip()
     rows_number = int(rows_number) if rows_number.isdigit() else None
@@ -14,14 +14,14 @@ def main():
     samples_number = int(samples_number) if samples_number.isdigit() else None
 
     display_stage("Filtering data")
-    df_filtered = process_csv_file(concept_a=concept_a or None, concept_c_action=concept_c_action or None, rows_number=rows_number)
+    df_filtered = process_csv_file(concept_a=concept_a or None, concept_a_action=concept_a_action or None, rows_number=rows_number)
     print("Filtered DataFrame:")
     print(df_filtered)
 
     # Audio loader needs to be run at least once
 
     display_stage("Mismatching labels")
-    create_dirty_label_dataset(df_filtered)
+    create_dirty_label_dataset(df_filtered, concept_a=concept_a, concept_a_action=concept_a_action)
 
 def display_stage(stage_name):
     print("\n" + "=" * 50)

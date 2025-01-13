@@ -57,6 +57,8 @@ def generate_poison(
         delta = torch.clamp(delta, -max_change, max_change)
         delta = delta.detach()
 
+        if i % 20 == 0:
+            print(f"[{row['audio']}] in {i}. epoch - loss: {loss}")
     print(f"[{row['audio']}] min loss: {min_loss}")
     final_mel_norm = torch.clamp(best_delta + w_1_mel_norm, -1, 1)
     return normalize_tensor(final_mel_norm, True, w_1_mel.max(), w_1_mel.min())
