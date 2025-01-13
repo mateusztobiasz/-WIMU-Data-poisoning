@@ -13,12 +13,6 @@ from wimudp.data_poisoning.utils import (
 )
 
 
-def check_audio_file(row: pd.Series) -> bool:
-    file_path = os.path.join(os.getcwd(), AUDIOS_DIR, f"{row['youtube_id']}.wav")
-
-    return os.path.exists(file_path)
-
-
 def mismatch_caption(row: pd.Series, concept_a: str, concept_a_action: str) -> str:
     row["caption"] = f"{concept_a.capitalize()} is {concept_a_action}ing."
 

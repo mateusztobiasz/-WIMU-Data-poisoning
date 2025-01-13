@@ -68,12 +68,6 @@ def get_top_candidates(
     return candidates_df
 
 
-def check_audio_file(youtube_id: str) -> bool:
-    file_path = os.path.join(os.getcwd(), AUDIOS_SAMPLES_DIR, f"{youtube_id}.wav")
-
-    return os.path.exists(file_path)
-
-
 if __name__ == "__main__":
     samples = get_samples()
 
