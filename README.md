@@ -60,6 +60,30 @@ On the other hand, in `wimudp/watermarking/models` there are:
 - `audio_gen` - dir containing files defining audio generative models - AudioLDM and MusicGen
 - `watermark_gen` - dir containing file defining AudioSeal model
 ### Data poisoning
+In `wimudp/data_poisoning` there are three files:
+- `generate_dirty_label.py` - command line tool used for running 3 steps to generate dirty label samples
+- `generate_nightshade.py` - command line tool used for running 3 stepes to generate Nightshade samples
+- `utils.py` - defining constant values and common methods
+
+In `wimudp/data_poisoning/data` there are dataset files where samples are chosen from.
+
+In `wimudp/data_poisoning/dirty_label` there are three files which are used to prepare dirty label attack:
+- `dataset_filter.py` - responsible for dataset filtering
+- `audio_loader.py` - responsible for downloading audio files based on youtube_id
+- `label_mismatcher.py` - responsible for captions mismacthing
+- `dirtylabel_notebook.ipynb` - notebook created to perform dirty label attack on Google Colab
+
+In `wimudp/data_poisoning/nightshade` there are three files which are used to prepare Nightshade attack:
+- `data_extractor.py` - responsible for prompts extraction (according to Step 1 from Nightshade paper)
+- `audioldm_prompter.py` - responsbile for querying AudioLDM model (according to Step 2 from Nightshade paper)
+- `poison_generator.py` - responsbile for poison samples generation (according to Step 3 from Nightshade paper)
+- `nightshade_notebook.ipynb` - notebook created to perform Nightshade attack on Google Colab
+- `pipeline.py` - defining AudioLDM pipeline, used for VAE embeddings
+- `clap.py` - defining CLAP model
+- `vocoder.py` - defining WaveGlowVocoder model
+
+In `wimudp/data_poisoning/finetuning` there is a git submodule which is basically a fork of AudioLDM finetuning script. It is used for pretrained AudioLDM finetuning with poison samples.
+
 ## Design proposal
 ### Schedule
 | **Week** | **TO-DO** |
