@@ -5,9 +5,9 @@ import pandas as pd
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import DownloadError, download_range_func
 
-from wimudp.data_poisoning.dirty_label.utils import (
-    AUDIOS_DIR,
-    CSV_CONCEPT_A_FILE,
+from wimudp.data_poisoning.utils import (
+    AUDIOS_SAMPLES_DIR,
+    CSV_CONCEPT_C_FILE,
     THREADS_NUMBER,
     read_csv,
 )
@@ -51,7 +51,7 @@ def download_audios_parallel(
 def setup_yt_dlp(range: Tuple[int]) -> dict:
     return {
         "format": "bestaudio/best",
-        "outtmpl": f"{AUDIOS_DIR}/%(id)s.%(ext)s",
+        "outtmpl": f"{AUDIOS_SAMPLES_DIR}/%(id)s.%(ext)s",
         "download_ranges": download_range_func(None, [range]),
         "postprocessors": [{"key": "FFmpegExtractAudio", "preferredcodec": "wav"}],
         "force_keyframes_at_cuts": True,
@@ -60,6 +60,6 @@ def setup_yt_dlp(range: Tuple[int]) -> dict:
 
 
 if __name__ == "__main__":
-    df = read_csv(CSV_CONCEPT_A_FILE)
+    df = read_csv(CSV_CONCEPT_C_FILE)
     yt_urls, ranges = build_urls_and_ranges(df)
     download_audios_parallel(yt_urls, ranges, THREADS_NUMBER)
