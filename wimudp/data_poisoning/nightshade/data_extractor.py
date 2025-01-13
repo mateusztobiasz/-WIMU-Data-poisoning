@@ -1,4 +1,3 @@
-import argparse
 import os
 
 import pandas as pd
@@ -17,7 +16,12 @@ from wimudp.data_poisoning.utils import (
     read_csv,
 )
 
-def get_samples(concept_c: str, concept_c_action: str, samples_number: int) -> pd.DataFrame:
+def get_samples(concept_c: str = None, concept_c_action: str = None, samples_number: int = None) -> pd.DataFrame:
+    # Use default values if arguments are None
+    concept_c = concept_c if concept_c is not None else CONCEPT_C
+    concept_c_action = concept_c_action if concept_c_action is not None else CONCEPT_C_ACTION
+    samples_number = samples_number if samples_number is not None else SAMPLES_NUMBER
+
     df = read_csv(CSV_CONCEPT_C_FILE)
     similarities = calculate_similarities(df, concept_c, concept_c_action)
     candidates = get_top_candidates(df, similarities, samples_number)
@@ -56,15 +60,3 @@ def check_audio_file(youtube_id: str) -> bool:
     file_path = os.path.join(os.getcwd(), AUDIOS_SAMPLES_DIR, f"{youtube_id}.wav")
 
     return os.path.exists(file_path)
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate samples with specified arguments.")
-    parser.add_argument("--concept_c", type=str, default=CONCEPT_C, help="Value for CONCEPT_C (default: from utils)")
-    parser.add_argument("--concept_c_action", type=str, default=CONCEPT_C_ACTION, help="Value for CONCEPT_C_ACTION (default: from utils)")
-    parser.add_argument("--samples_number", type=int, default=SAMPLES_NUMBER, help="Value for SAMPLES_NUMBER (default: from utils)")
-
-    args = parser.parse_args()
-
-    samples = get_samples(args.concept_c, args.concept_c_action, args.samples_number)
-
-    samples.to_csv(CSV_NS_SAMPLES_FILE, index=False)

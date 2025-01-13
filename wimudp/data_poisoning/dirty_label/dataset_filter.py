@@ -1,4 +1,3 @@
-import argparse
 import pandas as pd
 
 from wimudp.data_poisoning.utils import (
@@ -10,33 +9,16 @@ from wimudp.data_poisoning.utils import (
     read_csv,
 )
 
-def process_csv_file(concept_a: str, concept_c_action: str) -> pd.DataFrame:
+def process_csv_file(concept_a: str = None, concept_c_action: str = None, rows_number: int = None) -> pd.DataFrame:
+    concept_a = concept_a if concept_a is not None else CONCEPT_A
+    concept_c_action = concept_c_action if concept_c_action is not None else CONCEPT_C_ACTION
+    rows_number = rows_number if rows_number is not None else ROWS_NUMBER
+
     df = read_csv(CSV_DATASET_FILE)
     filtered_indexes = df.apply(lambda row: filter_caption_len(row, concept_a, concept_c_action), axis=1)
     filtered_df = df[filtered_indexes]
 
-    return filtered_df
+    return filtered_df.head(rows_number)
 
 def filter_caption_len(row: pd.Series, concept_a: str, concept_c_action: str) -> bool:
     return concept_c_action in row["caption"] and concept_a not in row["caption"]
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Process CSV file with specified arguments.")
-    parser.add_argument("--concept_a", type=str, default=None, help="Value for CONCEPT_A (default: from utils)")
-    parser.add_argument("--concept_c_action", type=str, default=None, help="Value for CONCEPT_C_ACTION (default: from utils)")
-    parser.add_argument("--rows_number", type=str, default=None, help="Number of rows to write to the output file (default: from utils)")
-
-    args = parser.parse_args()
-
-    # Handle concept_a and concept_c_action with default values
-    concept_a = args.concept_a if args.concept_a else CONCEPT_A
-    concept_c_action = args.concept_c_action if args.concept_c_action else CONCEPT_C_ACTION
-
-    # Handle rows_number, converting to int and using default if invalid
-    try:
-        rows_number = int(args.rows_number) if args.rows_number else ROWS_NUMBER
-    except ValueError:
-        rows_number = ROWS_NUMBER
-
-    df = process_csv_file(concept_a, concept_c_action)
-    df.head(rows_number).to_csv(CSV_CONCEPT_C_FILE)
