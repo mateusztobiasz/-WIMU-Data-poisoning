@@ -10,25 +10,22 @@ def main():
     samples_number = input("Enter value for SAMPLES_NUMBER (or press Enter to use default): ").strip()
 
 
-    # Run dataset_filter.py
     command_dataset_filter = [
-        "python", "dirty_label/dataset_filter.py",
+        "poetry", "run", "py", "dirty_label/dataset_filter.py",
         "--concept_a", concept_a if concept_a else "",
         "--concept_c_action", concept_c_action if concept_c_action else "",
         "--rows_number", rows_number if rows_number else ""
     ]
 
-    # Run data_extractor.py
     command_data_extractor = [
-        "python", "nightshade/data_extractor.py",
+        "poetry", "run", "py", "nightshade/data_extractor.py",
         "--concept_c", concept_c if concept_c else "",
         "--concept_c_action", concept_c_action_extractor if concept_c_action_extractor else "",
         "--samples_number", samples_number if samples_number else ""
     ]
 
-        # Run data_extractor.py
     command_poison_generator = [
-        "python", "nightshade/poiston_generator.py",
+        "poetry", "run", "py", "nightshade/poison_generator.py",
     ]
 
     subprocess.run(command_dataset_filter)

@@ -24,14 +24,19 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process CSV file with specified arguments.")
     parser.add_argument("--concept_a", type=str, default=None, help="Value for CONCEPT_A (default: from utils)")
     parser.add_argument("--concept_c_action", type=str, default=None, help="Value for CONCEPT_C_ACTION (default: from utils)")
-    parser.add_argument("--rows_number", type=int, default=None, help="Number of rows to write to the output file (default: from utils)")
+    parser.add_argument("--rows_number", type=str, default=None, help="Number of rows to write to the output file (default: from utils)")
 
     args = parser.parse_args()
 
-    # Use provided values or fall back to defaults from utils
+    # Handle concept_a and concept_c_action with default values
     concept_a = args.concept_a if args.concept_a else CONCEPT_A
     concept_c_action = args.concept_c_action if args.concept_c_action else CONCEPT_C_ACTION
-    rows_number = args.rows_number if args.rows_number else ROWS_NUMBER
+
+    # Handle rows_number, converting to int and using default if invalid
+    try:
+        rows_number = int(args.rows_number) if args.rows_number else ROWS_NUMBER
+    except ValueError:
+        rows_number = ROWS_NUMBER
 
     df = process_csv_file(concept_a, concept_c_action)
     df.head(rows_number).to_csv(CSV_CONCEPT_C_FILE)
