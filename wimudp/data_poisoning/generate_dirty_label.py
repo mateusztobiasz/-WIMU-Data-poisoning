@@ -14,7 +14,7 @@ def main():
     samples_number = int(samples_number) if samples_number.isdigit() else None
 
     display_stage("Filtering data")
-    df_filtered = process_csv_file(concept_a=concept_a or None, concept_a_action=concept_a_action or None, rows_number=rows_number)
+    df_filtered = process_csv_file(concept_a=concept_a or None, concept_c_action=concept_a_action or None, rows_number=rows_number)
     print("Filtered DataFrame:")
     print(df_filtered)
 

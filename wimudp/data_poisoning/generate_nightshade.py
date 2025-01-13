@@ -34,7 +34,5 @@ def display_stage(stage_name):
     print(f"{' ' * ((50 - len(stage_name)) // 2)}{stage_name.upper()}")
     print("=" * 50 + "\n")
 
-display_stage("Filtering Data")
-
 if __name__ == "__main__":
     main()

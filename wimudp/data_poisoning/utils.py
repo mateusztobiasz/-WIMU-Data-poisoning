@@ -5,7 +5,9 @@ import pandas as pd
 import torch
 import torch.nn.functional as F
 
-AUDIOLDM_DATASET_DIR = "../finetuning/audioldm/data/dataset"
+from typing import Tuple
+
+AUDIOLDM_DATASET_DIR = "./finetuning/audioldm/data/dataset"
 AUDIOS_DIR = f"{AUDIOLDM_DATASET_DIR}/audioset"
 CONCEPT_A = "dog"
 CONCEPT_C = "cat"
