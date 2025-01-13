@@ -242,13 +242,17 @@ Our next aim is to reproduce the Nightshade attack following the three steps sho
 - in the third step, we want to use backpropagation to find minimum value of: min|F(x_c + *d*), F(x_a)| with respect to *d* where F is the feature extractor - VAE (section in [AudioLDM paper](https://arxiv.org/pdf/2301.12503)), || is the distance in the semantic space and x_c and x_a are MEL-spectrograms of original audio sample (connected to specific text prompt) and generated audio sample (generated in step 2). Having the optimal value of *d*, we can perturbate the original image by adding some value to MEL-spectrogram and create waveform using vocoder.
 ### Results
 We focused on Nightshad attack results. We wanted model to confuse cat meowing with dog barking. In order to do this we generated around 180 poison samples and compared clean pretrained model output with poisoned model output for prompt "Cat meows":
-<audio controls>
-  <source src="https://raw.githubusercontent.com/WIMU-BKT/WIMU-Data-poisoning/main/Cat_meows_original.wav" type="audio/wav">
-</audio>
 
-<audio controls>
-  <source src="https://raw.githubusercontent.com/WIMU-BKT/WIMU-Data-poisoning/main/Cat_meows_poisoned.wav" type="audio/mpeg">
-</audio>
+
+https://github.com/user-attachments/assets/d12e13cf-c677-433f-b659-1cb1f70c3325
+
+Audio from clean pretrained AudioLDM - CLAP metric comparing prompt to audio: 0.35.
+
+
+https://github.com/user-attachments/assets/78dde08b-a442-4b63-a1fb-bd48a01def5e
+
+Audio from poisoned AudioLDM - CLAP metric comparing prompt to audio: 0.20.
+
 
 ## Bibliography
 - AudioSeal: https://arxiv.org/abs/2401.17264v2 / https://github.com/facebookresearch/audioseal/tree/main
